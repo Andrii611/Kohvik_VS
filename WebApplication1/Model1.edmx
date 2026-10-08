@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tootajaSet" EntityType="Model1.tootaja" />
+          <EntitySet Name="AmetSet" EntityType="Model1.Amet" />
+          <EntitySet Name="ametTootajaSet" EntityType="Model1.ametTootaja" />
+          <AssociationSet Name="tootajaametTootaja" Association="Model1.tootajaametTootaja">
+            <End Role="tootaja" EntitySet="tootajaSet" />
+            <End Role="ametTootaja" EntitySet="ametTootajaSet" />
+          </AssociationSet>
+          <AssociationSet Name="Amettootaja1" Association="Model1.Amettootaja1">
+            <End Role="Amet" EntitySet="AmetSet" />
+            <End Role="tootaja" EntitySet="tootajaSet" />
+          </AssociationSet>
+          <EntitySet Name="laudSet" EntityType="Model1.laud" />
+          <EntitySet Name="klientSet" EntityType="Model1.klient" />
+          <EntitySet Name="BroneerimineSet" EntityType="Model1.Broneerimine" />
+          <AssociationSet Name="klientBroneerimine" Association="Model1.klientBroneerimine">
+            <End Role="klient" EntitySet="klientSet" />
+            <End Role="Broneerimine" EntitySet="BroneerimineSet" />
+          </AssociationSet>
+          <AssociationSet Name="laudBroneerimine" Association="Model1.laudBroneerimine">
+            <End Role="laud" EntitySet="laudSet" />
+            <End Role="Broneerimine" EntitySet="BroneerimineSet" />
+          </AssociationSet>
+          <EntitySet Name="KategooriaSet" EntityType="Model1.Kategooria" />
+          <EntitySet Name="ToodeSet" EntityType="Model1.Toode" />
+          <AssociationSet Name="KategooriaToode" Association="Model1.KategooriaToode">
+            <End Role="Kategooria" EntitySet="KategooriaSet" />
+            <End Role="Toode" EntitySet="ToodeSet" />
+          </AssociationSet>
+          <EntitySet Name="koostisosaSet" EntityType="Model1.koostisosa" />
+          <EntitySet Name="TootekoostisosaSet" EntityType="Model1.Tootekoostisosa" />
+          <AssociationSet Name="ToodeTootekoostisosa" Association="Model1.ToodeTootekoostisosa">
+            <End Role="Toode" EntitySet="ToodeSet" />
+            <End Role="Tootekoostisosa" EntitySet="TootekoostisosaSet" />
+          </AssociationSet>
+          <AssociationSet Name="koostisosaTootekoostisosa" Association="Model1.koostisosaTootekoostisosa">
+            <End Role="koostisosa" EntitySet="koostisosaSet" />
+            <End Role="Tootekoostisosa" EntitySet="TootekoostisosaSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tootaja">
+          <Key>
+            <PropertyRef Name="tootajaID" />
+          </Key>
+          <Property Name="tootajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nimiPerenimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="ametTootaja" Relationship="Model1.tootajaametTootaja" FromRole="tootaja" ToRole="ametTootaja" />
+          <Property Name="isikukood" Type="String" Nullable="false" />
+          <Property Name="telefon" Type="String" Nullable="false" />
+          <NavigationProperty Name="Amet" Relationship="Model1.Amettootaja1" FromRole="tootaja" ToRole="Amet" />
+        </EntityType>
+        <EntityType Name="Amet">
+          <Key>
+            <PropertyRef Name="ametID" />
+          </Key>
+          <Property Name="ametID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ametNimetus" Type="String" Nullable="false" />
+          <NavigationProperty Name="tootaja" Relationship="Model1.Amettootaja1" FromRole="Amet" ToRole="tootaja" />
+        </EntityType>
+        <EntityType Name="ametTootaja">
+          <Key>
+            <PropertyRef Name="ametiTootajaID" />
+          </Key>
+          <Property Name="ametiTootajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tootaja" Relationship="Model1.tootajaametTootaja" FromRole="ametTootaja" ToRole="tootaja" />
+        </EntityType>
+        <Association Name="tootajaametTootaja">
+          <End Type="Model1.tootaja" Role="tootaja" Multiplicity="1" />
+          <End Type="Model1.ametTootaja" Role="ametTootaja" Multiplicity="*" />
+        </Association>
+        <Association Name="Amettootaja1">
+          <End Type="Model1.Amet" Role="Amet" Multiplicity="1" />
+          <End Type="Model1.tootaja" Role="tootaja" Multiplicity="*" />
+        </Association>
+        <EntityType Name="laud">
+          <Key>
+            <PropertyRef Name="laud_ID" />
+          </Key>
+          <Property Name="laud_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="laud_number" Type="String" Nullable="false" />
+          <Property Name="kohtade_arv" Type="String" Nullable="false" />
+          <NavigationProperty Name="Broneerimine" Relationship="Model1.laudBroneerimine" FromRole="laud" ToRole="Broneerimine" />
+        </EntityType>
+        <EntityType Name="klient">
+          <Key>
+            <PropertyRef Name="klient_ID" />
+          </Key>
+          <Property Name="klient_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="Broneerimine" Relationship="Model1.klientBroneerimine" FromRole="klient" ToRole="Broneerimine" />
+        </EntityType>
+        <EntityType Name="Broneerimine">
+          <Key>
+            <PropertyRef Name="Broneerimine_ID" />
+          </Key>
+          <Property Name="Broneerimine_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="klient" Relationship="Model1.klientBroneerimine" FromRole="Broneerimine" ToRole="klient" />
+          <NavigationProperty Name="laud" Relationship="Model1.laudBroneerimine" FromRole="Broneerimine" ToRole="laud" />
+          <Property Name="kuupaev" Type="String" Nullable="false" />
+          <Property Name="kelleaeg" Type="String" Nullable="false" />
+          <Property Name="inimeste_arv" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="klientBroneerimine">
+          <End Type="Model1.klient" Role="klient" Multiplicity="1" />
+          <End Type="Model1.Broneerimine" Role="Broneerimine" Multiplicity="*" />
+        </Association>
+        <Association Name="laudBroneerimine">
+          <End Type="Model1.laud" Role="laud" Multiplicity="1" />
+          <End Type="Model1.Broneerimine" Role="Broneerimine" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Kategooria">
+          <Key>
+            <PropertyRef Name="Kategooria_ID" />
+          </Key>
+          <Property Name="Kategooria_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="Toode" Relationship="Model1.KategooriaToode" FromRole="Kategooria" ToRole="Toode" />
+        </EntityType>
+        <EntityType Name="Toode">
+          <Key>
+            <PropertyRef Name="Toode_ID" />
+          </Key>
+          <Property Name="Toode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Kategooria" Relationship="Model1.KategooriaToode" FromRole="Toode" ToRole="Kategooria" />
+          <Property Name="Nimetus" Type="String" Nullable="false" />
+          <Property Name="kirjeldus" Type="String" Nullable="false" />
+          <Property Name="Hind" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tootekoostisosa" Relationship="Model1.ToodeTootekoostisosa" FromRole="Toode" ToRole="Tootekoostisosa" />
+        </EntityType>
+        <Association Name="KategooriaToode">
+          <End Type="Model1.Kategooria" Role="Kategooria" Multiplicity="1" />
+          <End Type="Model1.Toode" Role="Toode" Multiplicity="*" />
+        </Association>
+        <EntityType Name="koostisosa">
+          <Key>
+            <PropertyRef Name="koostisosa_ID" />
+          </Key>
+          <Property Name="koostisosa_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tootekoostisosa" Relationship="Model1.koostisosaTootekoostisosa" FromRole="koostisosa" ToRole="Tootekoostisosa" />
+        </EntityType>
+        <EntityType Name="Tootekoostisosa">
+          <Key>
+            <PropertyRef Name="Tootekoostisosa_ID" />
+          </Key>
+          <Property Name="Tootekoostisosa_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Toode" Relationship="Model1.ToodeTootekoostisosa" FromRole="Tootekoostisosa" ToRole="Toode" />
+          <NavigationProperty Name="koostisosa" Relationship="Model1.koostisosaTootekoostisosa" FromRole="Tootekoostisosa" ToRole="koostisosa" />
+          <Property Name="kogus" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="ToodeTootekoostisosa">
+          <End Type="Model1.Toode" Role="Toode" Multiplicity="1" />
+          <End Type="Model1.Tootekoostisosa" Role="Tootekoostisosa" Multiplicity="*" />
+        </Association>
+        <Association Name="koostisosaTootekoostisosa">
+          <End Type="Model1.koostisosa" Role="koostisosa" Multiplicity="1" />
+          <End Type="Model1.Tootekoostisosa" Role="Tootekoostisosa" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b1e1fb2779643a2bf2332e63a415589" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.tootaja" Width="1.5" PointX="3.125" PointY="1.25" />
+        <EntityTypeShape EntityType="Model1.Amet" Width="1.5" PointX="5.5" PointY="1.75" />
+        <EntityTypeShape EntityType="Model1.ametTootaja" Width="1.5" PointX="3.5" PointY="4.25" />
+        <AssociationConnector Association="Model1.tootajaametTootaja" />
+        <AssociationConnector Association="Model1.Amettootaja1" />
+        <EntityTypeShape EntityType="Model1.laud" Width="1.5" PointX="6.5" PointY="4" />
+        <EntityTypeShape EntityType="Model1.klient" Width="1.5" PointX="8.375" PointY="2.625" />
+        <EntityTypeShape EntityType="Model1.Broneerimine" Width="1.5" PointX="10.5" PointY="4.75" />
+        <AssociationConnector Association="Model1.klientBroneerimine" />
+        <AssociationConnector Association="Model1.laudBroneerimine" />
+        <EntityTypeShape EntityType="Model1.Kategooria" Width="1.5" PointX="10.875" PointY="2.625" />
+        <EntityTypeShape EntityType="Model1.Toode" Width="1.5" PointX="13.25" PointY="2.25" />
+        <AssociationConnector Association="Model1.KategooriaToode" />
+        <EntityTypeShape EntityType="Model1.koostisosa" Width="1.5" PointX="13.375" PointY="5.25" />
+        <EntityTypeShape EntityType="Model1.Tootekoostisosa" Width="1.5" PointX="15.75" PointY="4.75" />
+        <AssociationConnector Association="Model1.ToodeTootekoostisosa" />
+        <AssociationConnector Association="Model1.koostisosaTootekoostisosa" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
