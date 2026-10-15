@@ -16,12 +16,12 @@ namespace WebApplication1
     {
         public Amet()
         {
-            this.tootaja = new HashSet<tootaja>();
+            this.ametTootaja = new HashSet<ametTootaja>();
         }
     
         public int ametID { get; set; }
         public string ametNimetus { get; set; }
     
-        public virtual ICollection<tootaja> tootaja { get; set; }
+        public virtual ICollection<ametTootaja> ametTootaja { get; set; }
     }
 }

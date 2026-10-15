@@ -20,10 +20,6 @@
       <End Role="tootaja" EntitySet="tootajaSet" />
       <End Role="ametTootaja" EntitySet="ametTootajaSet" />
     </AssociationSet>
-    <AssociationSet Name="Amettootaja1" Association="Model1.Store.Amettootaja1">
-      <End Role="Amet" EntitySet="AmetSet" />
-      <End Role="tootaja" EntitySet="tootajaSet" />
-    </AssociationSet>
     <AssociationSet Name="klientBroneerimine" Association="Model1.Store.klientBroneerimine">
       <End Role="klient" EntitySet="klientSet" />
       <End Role="Broneerimine" EntitySet="BroneerimineSet" />
@@ -44,6 +40,10 @@
       <End Role="koostisosa" EntitySet="koostisosaSet" />
       <End Role="Tootekoostisosa" EntitySet="TootekoostisosaSet" />
     </AssociationSet>
+    <AssociationSet Name="AmetametTootaja" Association="Model1.Store.AmetametTootaja">
+      <End Role="Amet" EntitySet="AmetSet" />
+      <End Role="ametTootaja" EntitySet="ametTootajaSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="tootajaSet">
     <Key>
@@ -53,7 +53,6 @@
     <Property Name="nimiPerenimi" Type="nvarchar(max)" Nullable="false" />
     <Property Name="isikukood" Type="nvarchar(max)" Nullable="false" />
     <Property Name="telefon" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Amet_ametID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="AmetSet">
     <Key>
@@ -68,6 +67,7 @@
     </Key>
     <Property Name="ametiTootajaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tootaja_tootajaID" Type="int" Nullable="false" />
+    <Property Name="Amet_ametID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="laudSet">
     <Key>
@@ -140,18 +140,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="Amettootaja1">
-    <End Role="Amet" Type="Model1.Store.AmetSet" Multiplicity="1" />
-    <End Role="tootaja" Type="Model1.Store.tootajaSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Amet">
-        <PropertyRef Name="ametID" />
-      </Principal>
-      <Dependent Role="tootaja">
-        <PropertyRef Name="Amet_ametID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="klientBroneerimine">
     <End Role="klient" Type="Model1.Store.klientSet" Multiplicity="1" />
     <End Role="Broneerimine" Type="Model1.Store.BroneerimineSet" Multiplicity="*" />
@@ -212,6 +200,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="AmetametTootaja">
+    <End Role="Amet" Type="Model1.Store.AmetSet" Multiplicity="1" />
+    <End Role="ametTootaja" Type="Model1.Store.ametTootajaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Amet">
+        <PropertyRef Name="ametID" />
+      </Principal>
+      <Dependent Role="ametTootaja">
+        <PropertyRef Name="Amet_ametID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -223,10 +223,6 @@
           <AssociationSet Name="tootajaametTootaja" Association="Model1.tootajaametTootaja">
             <End Role="tootaja" EntitySet="tootajaSet" />
             <End Role="ametTootaja" EntitySet="ametTootajaSet" />
-          </AssociationSet>
-          <AssociationSet Name="Amettootaja1" Association="Model1.Amettootaja1">
-            <End Role="Amet" EntitySet="AmetSet" />
-            <End Role="tootaja" EntitySet="tootajaSet" />
           </AssociationSet>
           <EntitySet Name="laudSet" EntityType="Model1.laud" />
           <EntitySet Name="klientSet" EntityType="Model1.klient" />
@@ -255,6 +251,10 @@
             <End Role="koostisosa" EntitySet="koostisosaSet" />
             <End Role="Tootekoostisosa" EntitySet="TootekoostisosaSet" />
           </AssociationSet>
+          <AssociationSet Name="AmetametTootaja" Association="Model1.AmetametTootaja">
+            <End Role="Amet" EntitySet="AmetSet" />
+            <End Role="ametTootaja" EntitySet="ametTootajaSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tootaja">
           <Key>
@@ -265,7 +265,6 @@
           <NavigationProperty Name="ametTootaja" Relationship="Model1.tootajaametTootaja" FromRole="tootaja" ToRole="ametTootaja" />
           <Property Name="isikukood" Type="String" Nullable="false" />
           <Property Name="telefon" Type="String" Nullable="false" />
-          <NavigationProperty Name="Amet" Relationship="Model1.Amettootaja1" FromRole="tootaja" ToRole="Amet" />
         </EntityType>
         <EntityType Name="Amet">
           <Key>
@@ -273,7 +272,7 @@
           </Key>
           <Property Name="ametID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ametNimetus" Type="String" Nullable="false" />
-          <NavigationProperty Name="tootaja" Relationship="Model1.Amettootaja1" FromRole="Amet" ToRole="tootaja" />
+          <NavigationProperty Name="ametTootaja" Relationship="Model1.AmetametTootaja" FromRole="Amet" ToRole="ametTootaja" />
         </EntityType>
         <EntityType Name="ametTootaja">
           <Key>
@@ -281,14 +280,11 @@
           </Key>
           <Property Name="ametiTootajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="tootaja" Relationship="Model1.tootajaametTootaja" FromRole="ametTootaja" ToRole="tootaja" />
+          <NavigationProperty Name="Amet" Relationship="Model1.AmetametTootaja" FromRole="ametTootaja" ToRole="Amet" />
         </EntityType>
         <Association Name="tootajaametTootaja">
           <End Type="Model1.tootaja" Role="tootaja" Multiplicity="1" />
           <End Type="Model1.ametTootaja" Role="ametTootaja" Multiplicity="*" />
-        </Association>
-        <Association Name="Amettootaja1">
-          <End Type="Model1.Amet" Role="Amet" Multiplicity="1" />
-          <End Type="Model1.tootaja" Role="tootaja" Multiplicity="*" />
         </Association>
         <EntityType Name="laud">
           <Key>
@@ -373,6 +369,10 @@
         <Association Name="koostisosaTootekoostisosa">
           <End Type="Model1.koostisosa" Role="koostisosa" Multiplicity="1" />
           <End Type="Model1.Tootekoostisosa" Role="Tootekoostisosa" Multiplicity="*" />
+        </Association>
+        <Association Name="AmetametTootaja">
+          <End Type="Model1.Amet" Role="Amet" Multiplicity="1" />
+          <End Type="Model1.ametTootaja" Role="ametTootaja" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -474,14 +474,6 @@
         <ScalarProperty Name="ametiTootajaID" ColumnName="ametiTootajaID" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="Amettootaja1" TypeName="Model1.Amettootaja1" StoreEntitySet="tootajaSet">
-      <EndProperty Name="Amet">
-        <ScalarProperty Name="ametID" ColumnName="Amet_ametID" />
-      </EndProperty>
-      <EndProperty Name="tootaja">
-        <ScalarProperty Name="tootajaID" ColumnName="tootajaID" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="klientBroneerimine" TypeName="Model1.klientBroneerimine" StoreEntitySet="BroneerimineSet">
       <EndProperty Name="klient">
         <ScalarProperty Name="klient_ID" ColumnName="klient_klient_ID" />
@@ -520,6 +512,14 @@
       </EndProperty>
       <EndProperty Name="Tootekoostisosa">
         <ScalarProperty Name="Tootekoostisosa_ID" ColumnName="Tootekoostisosa_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AmetametTootaja" TypeName="Model1.AmetametTootaja" StoreEntitySet="ametTootajaSet">
+      <EndProperty Name="Amet">
+        <ScalarProperty Name="ametID" ColumnName="Amet_ametID" />
+      </EndProperty>
+      <EndProperty Name="ametTootaja">
+        <ScalarProperty Name="ametiTootajaID" ColumnName="ametiTootajaID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

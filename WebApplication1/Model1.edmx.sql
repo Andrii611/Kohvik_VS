@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/15/2026 10:37:04
+-- Date Created: 10/15/2026 12:22:35
 -- Generated from EDMX file: C:\Users\opilane\source\repos\Kohvik_VS\WebApplication1\Model1.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,62 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_tootajaametTootaja]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ametTootajaSet] DROP CONSTRAINT [FK_tootajaametTootaja];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Amettootaja1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tootajaSet] DROP CONSTRAINT [FK_Amettootaja1];
+GO
+IF OBJECT_ID(N'[dbo].[FK_klientBroneerimine]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BroneerimineSet] DROP CONSTRAINT [FK_klientBroneerimine];
+GO
+IF OBJECT_ID(N'[dbo].[FK_laudBroneerimine]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BroneerimineSet] DROP CONSTRAINT [FK_laudBroneerimine];
+GO
+IF OBJECT_ID(N'[dbo].[FK_KategooriaToode]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ToodeSet] DROP CONSTRAINT [FK_KategooriaToode];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ToodeTootekoostisosa]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TootekoostisosaSet] DROP CONSTRAINT [FK_ToodeTootekoostisosa];
+GO
+IF OBJECT_ID(N'[dbo].[FK_koostisosaTootekoostisosa]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TootekoostisosaSet] DROP CONSTRAINT [FK_koostisosaTootekoostisosa];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[tootajaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tootajaSet];
+GO
+IF OBJECT_ID(N'[dbo].[AmetSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AmetSet];
+GO
+IF OBJECT_ID(N'[dbo].[ametTootajaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ametTootajaSet];
+GO
+IF OBJECT_ID(N'[dbo].[laudSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[laudSet];
+GO
+IF OBJECT_ID(N'[dbo].[klientSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[klientSet];
+GO
+IF OBJECT_ID(N'[dbo].[BroneerimineSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BroneerimineSet];
+GO
+IF OBJECT_ID(N'[dbo].[KategooriaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[KategooriaSet];
+GO
+IF OBJECT_ID(N'[dbo].[ToodeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ToodeSet];
+GO
+IF OBJECT_ID(N'[dbo].[koostisosaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[koostisosaSet];
+GO
+IF OBJECT_ID(N'[dbo].[TootekoostisosaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TootekoostisosaSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -32,8 +83,7 @@ CREATE TABLE [dbo].[tootajaSet] (
     [tootajaID] int IDENTITY(1,1) NOT NULL,
     [nimiPerenimi] nvarchar(max)  NOT NULL,
     [isikukood] nvarchar(max)  NOT NULL,
-    [telefon] nvarchar(max)  NOT NULL,
-    [Amet_ametID] int  NOT NULL
+    [telefon] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -47,7 +97,8 @@ GO
 -- Creating table 'ametTootajaSet'
 CREATE TABLE [dbo].[ametTootajaSet] (
     [ametiTootajaID] int IDENTITY(1,1) NOT NULL,
-    [tootaja_tootajaID] int  NOT NULL
+    [tootaja_tootajaID] int  NOT NULL,
+    [Amet_ametID] int  NOT NULL
 );
 GO
 
@@ -193,21 +244,6 @@ ON [dbo].[ametTootajaSet]
     ([tootaja_tootajaID]);
 GO
 
--- Creating foreign key on [Amet_ametID] in table 'tootajaSet'
-ALTER TABLE [dbo].[tootajaSet]
-ADD CONSTRAINT [FK_Amettootaja1]
-    FOREIGN KEY ([Amet_ametID])
-    REFERENCES [dbo].[AmetSet]
-        ([ametID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Amettootaja1'
-CREATE INDEX [IX_FK_Amettootaja1]
-ON [dbo].[tootajaSet]
-    ([Amet_ametID]);
-GO
-
 -- Creating foreign key on [klient_klient_ID] in table 'BroneerimineSet'
 ALTER TABLE [dbo].[BroneerimineSet]
 ADD CONSTRAINT [FK_klientBroneerimine]
@@ -281,6 +317,21 @@ GO
 CREATE INDEX [IX_FK_koostisosaTootekoostisosa]
 ON [dbo].[TootekoostisosaSet]
     ([koostisosa_koostisosa_ID]);
+GO
+
+-- Creating foreign key on [Amet_ametID] in table 'ametTootajaSet'
+ALTER TABLE [dbo].[ametTootajaSet]
+ADD CONSTRAINT [FK_AmetametTootaja]
+    FOREIGN KEY ([Amet_ametID])
+    REFERENCES [dbo].[AmetSet]
+        ([ametID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AmetametTootaja'
+CREATE INDEX [IX_FK_AmetametTootaja]
+ON [dbo].[ametTootajaSet]
+    ([Amet_ametID]);
 GO
 
 -- --------------------------------------------------

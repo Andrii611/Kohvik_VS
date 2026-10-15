@@ -17,5 +17,6 @@ namespace WebApplication1
         public int ametiTootajaID { get; set; }
     
         public virtual tootaja tootaja { get; set; }
+        public virtual Amet Amet { get; set; }
     }
 }

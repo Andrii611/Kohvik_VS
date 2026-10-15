@@ -25,6 +25,5 @@ namespace WebApplication1
         public string telefon { get; set; }
     
         public virtual ICollection<ametTootaja> ametTootaja { get; set; }
-        public virtual Amet Amet { get; set; }
     }
 }

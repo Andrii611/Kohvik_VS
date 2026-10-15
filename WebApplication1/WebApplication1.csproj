@@ -106,7 +106,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Contact2.aspx" />
+    <Content Include="Contact - Copy.aspx" />
+    <Content Include="Contact3.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -226,12 +227,19 @@
     <Compile Include="Broneerimine.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Contact2.aspx.cs">
-      <DependentUpon>Contact2.aspx</DependentUpon>
+    <Compile Include="Contact - Copy.aspx.cs">
+      <DependentUpon>Contact - Copy.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Contact2.aspx.designer.cs">
-      <DependentUpon>Contact2.aspx</DependentUpon>
+    <Compile Include="Contact - Copy.aspx.designer.cs">
+      <DependentUpon>Contact - Copy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contact3.aspx.cs">
+      <DependentUpon>Contact3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact3.aspx.designer.cs">
+      <DependentUpon>Contact3.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
