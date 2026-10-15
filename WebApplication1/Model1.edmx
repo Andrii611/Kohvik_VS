@@ -4,11 +4,215 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="Model1TargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="tootajaSet" EntityType="Model1.Store.tootajaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AmetSet" EntityType="Model1.Store.AmetSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ametTootajaSet" EntityType="Model1.Store.ametTootajaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="laudSet" EntityType="Model1.Store.laudSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="klientSet" EntityType="Model1.Store.klientSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BroneerimineSet" EntityType="Model1.Store.BroneerimineSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="KategooriaSet" EntityType="Model1.Store.KategooriaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ToodeSet" EntityType="Model1.Store.ToodeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="koostisosaSet" EntityType="Model1.Store.koostisosaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TootekoostisosaSet" EntityType="Model1.Store.TootekoostisosaSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="tootajaametTootaja" Association="Model1.Store.tootajaametTootaja">
+      <End Role="tootaja" EntitySet="tootajaSet" />
+      <End Role="ametTootaja" EntitySet="ametTootajaSet" />
+    </AssociationSet>
+    <AssociationSet Name="Amettootaja1" Association="Model1.Store.Amettootaja1">
+      <End Role="Amet" EntitySet="AmetSet" />
+      <End Role="tootaja" EntitySet="tootajaSet" />
+    </AssociationSet>
+    <AssociationSet Name="klientBroneerimine" Association="Model1.Store.klientBroneerimine">
+      <End Role="klient" EntitySet="klientSet" />
+      <End Role="Broneerimine" EntitySet="BroneerimineSet" />
+    </AssociationSet>
+    <AssociationSet Name="laudBroneerimine" Association="Model1.Store.laudBroneerimine">
+      <End Role="laud" EntitySet="laudSet" />
+      <End Role="Broneerimine" EntitySet="BroneerimineSet" />
+    </AssociationSet>
+    <AssociationSet Name="KategooriaToode" Association="Model1.Store.KategooriaToode">
+      <End Role="Kategooria" EntitySet="KategooriaSet" />
+      <End Role="Toode" EntitySet="ToodeSet" />
+    </AssociationSet>
+    <AssociationSet Name="ToodeTootekoostisosa" Association="Model1.Store.ToodeTootekoostisosa">
+      <End Role="Toode" EntitySet="ToodeSet" />
+      <End Role="Tootekoostisosa" EntitySet="TootekoostisosaSet" />
+    </AssociationSet>
+    <AssociationSet Name="koostisosaTootekoostisosa" Association="Model1.Store.koostisosaTootekoostisosa">
+      <End Role="koostisosa" EntitySet="koostisosaSet" />
+      <End Role="Tootekoostisosa" EntitySet="TootekoostisosaSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tootajaSet">
+    <Key>
+      <PropertyRef Name="tootajaID" />
+    </Key>
+    <Property Name="tootajaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nimiPerenimi" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="isikukood" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="telefon" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Amet_ametID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AmetSet">
+    <Key>
+      <PropertyRef Name="ametID" />
+    </Key>
+    <Property Name="ametID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ametNimetus" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ametTootajaSet">
+    <Key>
+      <PropertyRef Name="ametiTootajaID" />
+    </Key>
+    <Property Name="ametiTootajaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tootaja_tootajaID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="laudSet">
+    <Key>
+      <PropertyRef Name="laud_ID" />
+    </Key>
+    <Property Name="laud_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="laud_number" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="kohtade_arv" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="klientSet">
+    <Key>
+      <PropertyRef Name="klient_ID" />
+    </Key>
+    <Property Name="klient_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nimi" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BroneerimineSet">
+    <Key>
+      <PropertyRef Name="Broneerimine_ID" />
+    </Key>
+    <Property Name="Broneerimine_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kuupaev" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="kelleaeg" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="inimeste_arv" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="klient_klient_ID" Type="int" Nullable="false" />
+    <Property Name="laud_laud_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KategooriaSet">
+    <Key>
+      <PropertyRef Name="Kategooria_ID" />
+    </Key>
+    <Property Name="Kategooria_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nimi" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ToodeSet">
+    <Key>
+      <PropertyRef Name="Toode_ID" />
+    </Key>
+    <Property Name="Toode_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nimetus" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="kirjeldus" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Hind" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Kategooria_Kategooria_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="koostisosaSet">
+    <Key>
+      <PropertyRef Name="koostisosa_ID" />
+    </Key>
+    <Property Name="koostisosa_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nimi" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TootekoostisosaSet">
+    <Key>
+      <PropertyRef Name="Tootekoostisosa_ID" />
+    </Key>
+    <Property Name="Tootekoostisosa_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kogus" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Toode_Toode_ID" Type="int" Nullable="false" />
+    <Property Name="koostisosa_koostisosa_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="tootajaametTootaja">
+    <End Role="tootaja" Type="Model1.Store.tootajaSet" Multiplicity="1" />
+    <End Role="ametTootaja" Type="Model1.Store.ametTootajaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tootaja">
+        <PropertyRef Name="tootajaID" />
+      </Principal>
+      <Dependent Role="ametTootaja">
+        <PropertyRef Name="tootaja_tootajaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Amettootaja1">
+    <End Role="Amet" Type="Model1.Store.AmetSet" Multiplicity="1" />
+    <End Role="tootaja" Type="Model1.Store.tootajaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Amet">
+        <PropertyRef Name="ametID" />
+      </Principal>
+      <Dependent Role="tootaja">
+        <PropertyRef Name="Amet_ametID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="klientBroneerimine">
+    <End Role="klient" Type="Model1.Store.klientSet" Multiplicity="1" />
+    <End Role="Broneerimine" Type="Model1.Store.BroneerimineSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="klient">
+        <PropertyRef Name="klient_ID" />
+      </Principal>
+      <Dependent Role="Broneerimine">
+        <PropertyRef Name="klient_klient_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="laudBroneerimine">
+    <End Role="laud" Type="Model1.Store.laudSet" Multiplicity="1" />
+    <End Role="Broneerimine" Type="Model1.Store.BroneerimineSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="laud">
+        <PropertyRef Name="laud_ID" />
+      </Principal>
+      <Dependent Role="Broneerimine">
+        <PropertyRef Name="laud_laud_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="KategooriaToode">
+    <End Role="Kategooria" Type="Model1.Store.KategooriaSet" Multiplicity="1" />
+    <End Role="Toode" Type="Model1.Store.ToodeSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategooria">
+        <PropertyRef Name="Kategooria_ID" />
+      </Principal>
+      <Dependent Role="Toode">
+        <PropertyRef Name="Kategooria_Kategooria_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ToodeTootekoostisosa">
+    <End Role="Toode" Type="Model1.Store.ToodeSet" Multiplicity="1" />
+    <End Role="Tootekoostisosa" Type="Model1.Store.TootekoostisosaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Toode">
+        <PropertyRef Name="Toode_ID" />
+      </Principal>
+      <Dependent Role="Tootekoostisosa">
+        <PropertyRef Name="Toode_Toode_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="koostisosaTootekoostisosa">
+    <End Role="koostisosa" Type="Model1.Store.koostisosaSet" Multiplicity="1" />
+    <End Role="Tootekoostisosa" Type="Model1.Store.TootekoostisosaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="koostisosa">
+        <PropertyRef Name="koostisosa_ID" />
+      </Principal>
+      <Dependent Role="Tootekoostisosa">
+        <PropertyRef Name="koostisosa_koostisosa_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -174,13 +378,152 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="Model1" />
-        <Alias Key="Target" Value="Model1.Store" />
-        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="tootajaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.tootaja)">
+        <MappingFragment StoreEntitySet="tootajaSet">
+          <ScalarProperty Name="tootajaID" ColumnName="tootajaID" />
+          <ScalarProperty Name="nimiPerenimi" ColumnName="nimiPerenimi" />
+          <ScalarProperty Name="isikukood" ColumnName="isikukood" />
+          <ScalarProperty Name="telefon" ColumnName="telefon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AmetSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Amet)">
+        <MappingFragment StoreEntitySet="AmetSet">
+          <ScalarProperty Name="ametID" ColumnName="ametID" />
+          <ScalarProperty Name="ametNimetus" ColumnName="ametNimetus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ametTootajaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ametTootaja)">
+        <MappingFragment StoreEntitySet="ametTootajaSet">
+          <ScalarProperty Name="ametiTootajaID" ColumnName="ametiTootajaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="laudSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.laud)">
+        <MappingFragment StoreEntitySet="laudSet">
+          <ScalarProperty Name="laud_ID" ColumnName="laud_ID" />
+          <ScalarProperty Name="laud_number" ColumnName="laud_number" />
+          <ScalarProperty Name="kohtade_arv" ColumnName="kohtade_arv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="klientSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.klient)">
+        <MappingFragment StoreEntitySet="klientSet">
+          <ScalarProperty Name="klient_ID" ColumnName="klient_ID" />
+          <ScalarProperty Name="nimi" ColumnName="nimi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BroneerimineSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Broneerimine)">
+        <MappingFragment StoreEntitySet="BroneerimineSet">
+          <ScalarProperty Name="Broneerimine_ID" ColumnName="Broneerimine_ID" />
+          <ScalarProperty Name="kuupaev" ColumnName="kuupaev" />
+          <ScalarProperty Name="kelleaeg" ColumnName="kelleaeg" />
+          <ScalarProperty Name="inimeste_arv" ColumnName="inimeste_arv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KategooriaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Kategooria)">
+        <MappingFragment StoreEntitySet="KategooriaSet">
+          <ScalarProperty Name="Kategooria_ID" ColumnName="Kategooria_ID" />
+          <ScalarProperty Name="nimi" ColumnName="nimi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToodeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Toode)">
+        <MappingFragment StoreEntitySet="ToodeSet">
+          <ScalarProperty Name="Toode_ID" ColumnName="Toode_ID" />
+          <ScalarProperty Name="Nimetus" ColumnName="Nimetus" />
+          <ScalarProperty Name="kirjeldus" ColumnName="kirjeldus" />
+          <ScalarProperty Name="Hind" ColumnName="Hind" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="koostisosaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.koostisosa)">
+        <MappingFragment StoreEntitySet="koostisosaSet">
+          <ScalarProperty Name="koostisosa_ID" ColumnName="koostisosa_ID" />
+          <ScalarProperty Name="nimi" ColumnName="nimi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TootekoostisosaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Tootekoostisosa)">
+        <MappingFragment StoreEntitySet="TootekoostisosaSet">
+          <ScalarProperty Name="Tootekoostisosa_ID" ColumnName="Tootekoostisosa_ID" />
+          <ScalarProperty Name="kogus" ColumnName="kogus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="tootajaametTootaja" TypeName="Model1.tootajaametTootaja" StoreEntitySet="ametTootajaSet">
+      <EndProperty Name="tootaja">
+        <ScalarProperty Name="tootajaID" ColumnName="tootaja_tootajaID" />
+      </EndProperty>
+      <EndProperty Name="ametTootaja">
+        <ScalarProperty Name="ametiTootajaID" ColumnName="ametiTootajaID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Amettootaja1" TypeName="Model1.Amettootaja1" StoreEntitySet="tootajaSet">
+      <EndProperty Name="Amet">
+        <ScalarProperty Name="ametID" ColumnName="Amet_ametID" />
+      </EndProperty>
+      <EndProperty Name="tootaja">
+        <ScalarProperty Name="tootajaID" ColumnName="tootajaID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="klientBroneerimine" TypeName="Model1.klientBroneerimine" StoreEntitySet="BroneerimineSet">
+      <EndProperty Name="klient">
+        <ScalarProperty Name="klient_ID" ColumnName="klient_klient_ID" />
+      </EndProperty>
+      <EndProperty Name="Broneerimine">
+        <ScalarProperty Name="Broneerimine_ID" ColumnName="Broneerimine_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="laudBroneerimine" TypeName="Model1.laudBroneerimine" StoreEntitySet="BroneerimineSet">
+      <EndProperty Name="laud">
+        <ScalarProperty Name="laud_ID" ColumnName="laud_laud_ID" />
+      </EndProperty>
+      <EndProperty Name="Broneerimine">
+        <ScalarProperty Name="Broneerimine_ID" ColumnName="Broneerimine_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="KategooriaToode" TypeName="Model1.KategooriaToode" StoreEntitySet="ToodeSet">
+      <EndProperty Name="Kategooria">
+        <ScalarProperty Name="Kategooria_ID" ColumnName="Kategooria_Kategooria_ID" />
+      </EndProperty>
+      <EndProperty Name="Toode">
+        <ScalarProperty Name="Toode_ID" ColumnName="Toode_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ToodeTootekoostisosa" TypeName="Model1.ToodeTootekoostisosa" StoreEntitySet="TootekoostisosaSet">
+      <EndProperty Name="Toode">
+        <ScalarProperty Name="Toode_ID" ColumnName="Toode_Toode_ID" />
+      </EndProperty>
+      <EndProperty Name="Tootekoostisosa">
+        <ScalarProperty Name="Tootekoostisosa_ID" ColumnName="Tootekoostisosa_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="koostisosaTootekoostisosa" TypeName="Model1.koostisosaTootekoostisosa" StoreEntitySet="TootekoostisosaSet">
+      <EndProperty Name="koostisosa">
+        <ScalarProperty Name="koostisosa_ID" ColumnName="koostisosa_koostisosa_ID" />
+      </EndProperty>
+      <EndProperty Name="Tootekoostisosa">
+        <ScalarProperty Name="Tootekoostisosa_ID" ColumnName="Tootekoostisosa_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -194,6 +537,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
