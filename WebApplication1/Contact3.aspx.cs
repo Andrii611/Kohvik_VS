@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
-    public partial class Contact2 : Page
+    public partial class Contact3 
     {
         
     }

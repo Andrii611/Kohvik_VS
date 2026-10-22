@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Web.UI;
 
 namespace WebApplication1
 {
@@ -16,6 +17,7 @@ namespace WebApplication1
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //the type or namespace name 'Optimization' does not exist in the namespace 'System.Web' (are yoy missing an assembly refer)
         }
     }
 }
