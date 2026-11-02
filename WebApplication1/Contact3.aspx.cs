@@ -35,5 +35,10 @@ namespace WebApplication1
             e.Values["tootaja_tootajaID"] = Convert.ToInt32(tootaja.SelectedValue);
             e.Values["Amet_ametID"] = Convert.ToInt32(amet.SelectedValue);
         }
+
+        protected void DetailsView1_PageIndexChanging(object sender, DetailsViewPageEventArgs e)
+        {
+
+        }
     }
 }

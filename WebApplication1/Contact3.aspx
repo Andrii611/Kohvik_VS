@@ -6,88 +6,74 @@
 
         <h2 id="title">Töötajate ametid</h2>
 
-        <asp:DetailsView ID="DetailsView1" runat="server"
-             OnItemInserting="DetailsView1_ItemInserting"
-             AutoGenerateRows="False"
-             DataKeyNames="ametiTootajaID"
-             DataSourceID="SqlDataSource1"
-             DefaultMode="Insert"
-             Height="50px" Width="350px">
-
+        <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" DataKeyNames="ametiTootajaID" DataSourceID="Tootaja_Ametid" Height="50px" OnPageIndexChanging="DetailsView1_PageIndexChanging" Width="125px">
             <Fields>
-
-                <asp:BoundField
-                    DataField="ametiTootajaID"
-                    HeaderText="ID"
-                    InsertVisible="False"
-                    ReadOnly="True" />
-
-                <asp:TemplateField HeaderText="Töötaja">
-
+                <asp:BoundField DataField="ametiTootajaID" HeaderText="ametiTootajaID" InsertVisible="False" ReadOnly="True" SortExpression="ametiTootajaID" />
+                <asp:TemplateField HeaderText="tootaja_tootajaID" SortExpression="tootaja_tootajaID">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("tootaja_tootajaID") %>'></asp:TextBox>
+                    </EditItemTemplate>
                     <InsertItemTemplate>
-                        <asp:DropDownList ID="DropDownList1"
-                            runat="server"
-                            DataSourceID="Tootaja"
-                            DataTextField="nimiPerenimi"
-                            DataValueField="tootajaID"
-                            SelectedValue='<%# Bind("tootaja_tootajaID") %>'>
+                        <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="Tootaja" DataTextField="nimiPerenimi" DataValueField="tootajaID" SelectedValue='<%# Bind("tootaja_tootajaID") %>'>
                         </asp:DropDownList>
+                        <asp:SqlDataSource ID="Tootaja" runat="server" ConnectionString="<%$ ConnectionStrings:KohvikConnectionString1 %>" DeleteCommand="DELETE FROM [tootajaSet] WHERE [tootajaID] = @tootajaID" InsertCommand="INSERT INTO [tootajaSet] ([nimiPerenimi]) VALUES (@nimiPerenimi)" SelectCommand="SELECT [tootajaID], [nimiPerenimi] FROM [tootajaSet]" UpdateCommand="UPDATE [tootajaSet] SET [nimiPerenimi] = @nimiPerenimi WHERE [tootajaID] = @tootajaID">
+                            <DeleteParameters>
+                                <asp:Parameter Name="tootajaID" Type="Int32" />
+                            </DeleteParameters>
+                            <InsertParameters>
+                                <asp:Parameter Name="nimiPerenimi" Type="String" />
+                            </InsertParameters>
+                            <UpdateParameters>
+                                <asp:Parameter Name="nimiPerenimi" Type="String" />
+                                <asp:Parameter Name="tootajaID" Type="Int32" />
+                            </UpdateParameters>
+                        </asp:SqlDataSource>
                     </InsertItemTemplate>
-
+                    <ItemTemplate>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("tootaja_tootajaID") %>'></asp:Label>
+                    </ItemTemplate>
                 </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Amet">
-
+                <asp:TemplateField HeaderText="Amet_ametID" SortExpression="Amet_ametID">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Amet_ametID") %>'></asp:TextBox>
+                    </EditItemTemplate>
                     <InsertItemTemplate>
-                        <asp:DropDownList ID="DropDownList2"
-                            runat="server"
-                            DataSourceID="Ameti"
-                            DataTextField="ametNimetus"
-                            DataValueField="ametID"
-                            SelectedValue='<%# Bind("Amet_ametID") %>'>
+                        <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="Amet" DataTextField="ametNimetus" DataValueField="ametID" SelectedValue='<%# Bind("Amet_ametID") %>'>
                         </asp:DropDownList>
+                        <asp:SqlDataSource ID="Amet" runat="server" ConnectionString="<%$ ConnectionStrings:KohvikConnectionString1 %>" DeleteCommand="DELETE FROM [AmetSet] WHERE [ametID] = @ametID" InsertCommand="INSERT INTO [AmetSet] ([ametNimetus]) VALUES (@ametNimetus)" SelectCommand="SELECT [ametNimetus], [ametID] FROM [AmetSet]" UpdateCommand="UPDATE [AmetSet] SET [ametNimetus] = @ametNimetus WHERE [ametID] = @ametID">
+                            <DeleteParameters>
+                                <asp:Parameter Name="ametID" Type="Int32" />
+                            </DeleteParameters>
+                            <InsertParameters>
+                                <asp:Parameter Name="ametNimetus" Type="String" />
+                            </InsertParameters>
+                            <UpdateParameters>
+                                <asp:Parameter Name="ametNimetus" Type="String" />
+                                <asp:Parameter Name="ametID" Type="Int32" />
+                            </UpdateParameters>
+                        </asp:SqlDataSource>
                     </InsertItemTemplate>
-
+                    <ItemTemplate>
+                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("Amet_ametID") %>'></asp:Label>
+                    </ItemTemplate>
                 </asp:TemplateField>
-
                 <asp:CommandField ShowInsertButton="True" />
-
             </Fields>
-
-        </asp:DetailsView>
-
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server"
-            ConnectionString="<%$ ConnectionStrings:KohvikConnectionString1 %>"
-            InsertCommand="
-                INSERT INTO ametTootajaSet
-                (tootaja_tootajaID, Amet_ametID)
-                VALUES
-                (@tootaja_tootajaID, @Amet_ametID)"
-            SelectCommand="
-                SELECT ametiTootajaID, tootaja_tootajaID, Amet_ametID
-                FROM ametTootajaSet">
-
-            <InsertParameters>
-                <asp:Parameter Name="tootaja_tootajaID" Type="Int32" />
-                <asp:Parameter Name="Amet_ametID" Type="Int32" />
-            </InsertParameters>
-
-        </asp:SqlDataSource>
-
-        <asp:SqlDataSource ID="Tootaja" runat="server"
-            ConnectionString="<%$ ConnectionStrings:KohvikConnectionString1 %>"
-            SelectCommand="
-                SELECT tootajaID, nimiPerenimi
-                FROM tootajaSet">
-        </asp:SqlDataSource>
-
-        <asp:SqlDataSource ID="Ameti" runat="server"
-            ConnectionString="<%$ ConnectionStrings:KohvikConnectionString1 %>"
-            SelectCommand="
-                SELECT ametID, ametNimetus
-                FROM AmetSet">
-        </asp:SqlDataSource>
-
+    </asp:DetailsView>
+    <asp:SqlDataSource ID="Tootaja_Ametid" runat="server" ConnectionString="<%$ ConnectionStrings:KohvikConnectionString1 %>" DeleteCommand="DELETE FROM [ametTootajaSet] WHERE [ametiTootajaID] = @ametiTootajaID" InsertCommand="INSERT INTO [ametTootajaSet] ([tootaja_tootajaID], [Amet_ametID]) VALUES (@tootaja_tootajaID, @Amet_ametID)" SelectCommand="SELECT [ametiTootajaID], [tootaja_tootajaID], [Amet_ametID] FROM [ametTootajaSet]" UpdateCommand="UPDATE [ametTootajaSet] SET [tootaja_tootajaID] = @tootaja_tootajaID, [Amet_ametID] = @Amet_ametID WHERE [ametiTootajaID] = @ametiTootajaID">
+        <DeleteParameters>
+            <asp:Parameter Name="ametiTootajaID" Type="Int32" />
+        </DeleteParameters>
+        <InsertParameters>
+            <asp:Parameter Name="tootaja_tootajaID" Type="Int32" />
+            <asp:Parameter Name="Amet_ametID" Type="Int32" />
+        </InsertParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="tootaja_tootajaID" Type="Int32" />
+            <asp:Parameter Name="Amet_ametID" Type="Int32" />
+            <asp:Parameter Name="ametiTootajaID" Type="Int32" />
+        </UpdateParameters>
+    </asp:SqlDataSource>
     <br />
 
     </main>
