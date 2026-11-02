@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="Model1StoreContainer">
     <EntitySet Name="tootajaSet" EntityType="Model1.Store.tootajaSet" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
     <EntitySet Name="AmetSet" EntityType="Model1.Store.AmetSet" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
@@ -215,8 +215,8 @@
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Model1" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="Model1" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="tootajaSet" EntityType="Model1.tootaja" />
           <EntitySet Name="AmetSet" EntityType="Model1.Amet" />
           <EntitySet Name="ametTootajaSet" EntityType="Model1.ametTootaja" />
@@ -260,7 +260,7 @@
           <Key>
             <PropertyRef Name="tootajaID" />
           </Key>
-          <Property Name="tootajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tootajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="nimiPerenimi" Type="String" Nullable="false" />
           <NavigationProperty Name="ametTootaja" Relationship="Model1.tootajaametTootaja" FromRole="tootaja" ToRole="ametTootaja" />
           <Property Name="isikukood" Type="String" Nullable="false" />
@@ -270,7 +270,7 @@
           <Key>
             <PropertyRef Name="ametID" />
           </Key>
-          <Property Name="ametID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ametID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="ametNimetus" Type="String" Nullable="false" />
           <NavigationProperty Name="ametTootaja" Relationship="Model1.AmetametTootaja" FromRole="Amet" ToRole="ametTootaja" />
         </EntityType>
@@ -278,7 +278,7 @@
           <Key>
             <PropertyRef Name="ametiTootajaID" />
           </Key>
-          <Property Name="ametiTootajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ametiTootajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <NavigationProperty Name="tootaja" Relationship="Model1.tootajaametTootaja" FromRole="ametTootaja" ToRole="tootaja" />
           <NavigationProperty Name="Amet" Relationship="Model1.AmetametTootaja" FromRole="ametTootaja" ToRole="Amet" />
         </EntityType>
@@ -290,7 +290,7 @@
           <Key>
             <PropertyRef Name="laud_ID" />
           </Key>
-          <Property Name="laud_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="laud_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="laud_number" Type="String" Nullable="false" />
           <Property Name="kohtade_arv" Type="String" Nullable="false" />
           <NavigationProperty Name="Broneerimine" Relationship="Model1.laudBroneerimine" FromRole="laud" ToRole="Broneerimine" />
@@ -299,7 +299,7 @@
           <Key>
             <PropertyRef Name="klient_ID" />
           </Key>
-          <Property Name="klient_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="klient_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="nimi" Type="String" Nullable="false" />
           <NavigationProperty Name="Broneerimine" Relationship="Model1.klientBroneerimine" FromRole="klient" ToRole="Broneerimine" />
         </EntityType>
@@ -307,7 +307,7 @@
           <Key>
             <PropertyRef Name="Broneerimine_ID" />
           </Key>
-          <Property Name="Broneerimine_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Broneerimine_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <NavigationProperty Name="klient" Relationship="Model1.klientBroneerimine" FromRole="Broneerimine" ToRole="klient" />
           <NavigationProperty Name="laud" Relationship="Model1.laudBroneerimine" FromRole="Broneerimine" ToRole="laud" />
           <Property Name="kuupaev" Type="String" Nullable="false" />
@@ -326,7 +326,7 @@
           <Key>
             <PropertyRef Name="Kategooria_ID" />
           </Key>
-          <Property Name="Kategooria_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategooria_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="nimi" Type="String" Nullable="false" />
           <NavigationProperty Name="Toode" Relationship="Model1.KategooriaToode" FromRole="Kategooria" ToRole="Toode" />
         </EntityType>
@@ -334,7 +334,7 @@
           <Key>
             <PropertyRef Name="Toode_ID" />
           </Key>
-          <Property Name="Toode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Toode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <NavigationProperty Name="Kategooria" Relationship="Model1.KategooriaToode" FromRole="Toode" ToRole="Kategooria" />
           <Property Name="Nimetus" Type="String" Nullable="false" />
           <Property Name="kirjeldus" Type="String" Nullable="false" />
@@ -349,7 +349,7 @@
           <Key>
             <PropertyRef Name="koostisosa_ID" />
           </Key>
-          <Property Name="koostisosa_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="koostisosa_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="nimi" Type="String" Nullable="false" />
           <NavigationProperty Name="Tootekoostisosa" Relationship="Model1.koostisosaTootekoostisosa" FromRole="koostisosa" ToRole="Tootekoostisosa" />
         </EntityType>
@@ -357,7 +357,7 @@
           <Key>
             <PropertyRef Name="Tootekoostisosa_ID" />
           </Key>
-          <Property Name="Tootekoostisosa_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tootekoostisosa_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <NavigationProperty Name="Toode" Relationship="Model1.ToodeTootekoostisosa" FromRole="Tootekoostisosa" ToRole="Toode" />
           <NavigationProperty Name="koostisosa" Relationship="Model1.koostisosaTootekoostisosa" FromRole="Tootekoostisosa" ToRole="koostisosa" />
           <Property Name="kogus" Type="String" Nullable="false" />
@@ -378,7 +378,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
     <EntitySetMapping Name="tootajaSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.tootaja)">
